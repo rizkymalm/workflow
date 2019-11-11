@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Request</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <% include ../partials/header %>
+        <!-- <script type="text/javascript" src="js/angular.piechart.min.js"></script> -->
+        <!-- <link rel='stylesheet' type='text/css' href='css/angular.piechart.css'> -->
+    </head>
+    <body>
+        <div class="blur" style="display: none; z-index: 1001"></div>
+        <div class="popup">
+            <div class="close-onbox" onClick="closePopup()">
+                <div style="width: 15px; height: 15px;">
+                    <img src="<%= baseurl() %>images/icon/cross-thick.png">
+                </div>
+            </div>
+            <form action="/delete" method="POST">
+                <table class="popupContent" cellspacing="10" cellpadding="10">
+                    <tr>
+                        <td style="text-align: left;">Delete</td>
+                    </tr>
+                    <tr>
+                        <td>Apakah anda yakin ingin menghapus request ini ?<input type="hidden" name="id" class="req_id"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="myBtn myButton-edit" onclick="closePopup()">Cancel</button>
+                            <button type="submit" class="myBtn myButton-delete">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="popupBtn">
+                <a href="" class="myButton-gradBlueGreen size-std"></a>
+                <a href="" class="myButton-white size-std"></a>
+            </div>
+        </div>
+        <div class="wrapper" ng-app="myApp" ng-controller="myCtrl">
+            <div class="lSide">
+                <% include ../partials/sidebar %>
+            </div>
+            <div class="rSide">
+                <div class="head gradientr">
+                    <div class="box-arrow delay desk" onClick="resizes()">
+                        <div class="arrow delay"></div>
+                        <div class="arrow delay"></div>
+                    </div>
+                </div>
+                <div class="mainbox column">
+                    <div class="containt cols-12">
+                        <div class="headtitle trans">
+                            <p class="size-head4 nopad">Request Issues</p>
+                        </div>
+                        <div class="list-control">
+                            <div class="list-control-box">
+                                <button class="option-click btn-list-control" href="#list-control-show">
+                                    Show :&nbsp; 25 
+                                    <img src="<%= baseurl() %>images/icon/arrow-down.png" class="icon-list-control">
+                                </button>
+                                <div class="option-box option-menu shadow half box-list-control" id="list-control-show">
+                                    <ul class="full-length nopad">
+                                        <a href="?page=member&show=20"><li class="pad-tb">20</li></a>
+                                        <a href="?page=member&show=50"><li class="pad-tb">50</li></a>
+                                        <a href="?page=member&show=100"><li class="pad-tb">100</li></a>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="list-control-box">
+                                <button class="option-click btn-list-control" href="#list-control-sort">
+                                    Sory By :&nbsp; Request ID
+                                    <img src="<%= baseurl() %>images/icon/arrow-down.png" class="icon-list-control">
+                                </button>
+                                <div class="option-box option-menu shadow half box-list-control" id="list-control-sort">
+                                    <ul style="width: 100%;" class="nopad">
+                                        <li>Due Date</li>
+                                        <li>Created Date</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-length" style="overflow-x: auto; padding-bottom: 40px; width: 100%;">
+                            <table class="size-std full-tables" id="req_tab" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th style="text-align: left;" ng-click="orderByMe('id')">Request ID</th>
+                                    <th style="text-align: left;" ng-click="orderByMe('subject')">Subject Request</th>
+                                    <th ng-click="orderByMe('duedate')">Due date</th>
+                                    <th ng-click="orderByMe('status')">Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr ng-repeat="req in issue| orderBy:myOrderBy | filter: search">
+                                    <td><a href="/request/detail/{{req.id}}">{{req.id}}</a></td>
+                                    <td>{{req.subject}}</td>
+                                    <td style="text-align: center;">{{req.duedate}}</td>
+                                    <td style="text-align: center;">{{req.status}}</td>
+                                    <td style="text-align: center;">
+                                        <button onclick="closePopup()" class="myBtn myButton-edit">Edit</button>
+                                        <!-- <a href="/delete/{{req.id}}" class="myBtn myButton-delete">Delete</a> -->
+                                        <a href="javascript:void(0);" class="myBtn myButton-delete delete" data-id="{{req.del}}">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+<% include ../partials/footer %>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#req_tab").on('click','.delete',function(){
+        var id_req = $(this).data("id");
+        $('.popup').show();
+        $('.blur').show();
+        $('.req_id').val(id_req);
+    })
+})
+</script>
+<script type="text/javascript">
+    var jsoon = <%- JSON.stringify(objs) %>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope){
+        $scope.issue = jsoon
+        $scope.orderByMe = function(x){
+            $scope.myOrderBy = x;
+        }
+    })
+</script>
+</html>

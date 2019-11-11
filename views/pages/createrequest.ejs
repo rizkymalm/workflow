@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Request</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <% include ../partials/header %>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="lSide">
+            <% include ../partials/sidebar %>
+        </div>
+        <div class="rSide">
+            <div class="head gradientr">
+                <div class="box-arrow delay desk" onClick="resizes()">
+                    <div class="arrow delay"></div>
+                    <div class="arrow delay"></div>
+                </div>
+            </div>
+            <div class="mainbox column">
+                <div class="cols-12" style="background:#ffffff;">
+                    <form action="/save" method="POST" id="validate-frm">
+                    <table style="width: 100%;" cellpadding="8" cellspacing="8" class="size-std">
+                        <tr>
+                            <td style="text-align: right; width: 30%;">Request To</td>
+                            <td>
+                                <input type="hidden" name="idreq" class="frm-std" required="" value="<%= result %>">
+                                <input type="text" name="reqto" placeholder="To" class="frm-std" required="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right; width: 30%;">Subject</td>
+                            <td><input type="text" name="subject" placeholder="subject" class="frm-std" required=""></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right; width: 30%;" class="frm-std">Description</td>
+                            <td><textarea name="desc"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right; width: 30%;">Status</td>
+                            <td>
+                                <select name="status">
+                                    <option value="open">Open</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="closed">Closed</option>
+                                    <option value="cancel">Cancel</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right; width: 30%;">Due date</td>
+                            <td><input type="date" name="duedate"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;"><button type="submit" class="myBtn myButton-edit">Save</button></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<% include ../partials/footer %>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/validateForm.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#req_tab").on('click','.delete',function(){
+        var id_req = $(this).data("id");
+        $('.popup').show();
+        $('.blur').show();
+        $('.req_id').val(id_req);
+    })
+})
+</script>
+</html>

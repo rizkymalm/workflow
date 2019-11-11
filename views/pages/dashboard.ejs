@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Page Title</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <% include ../partials/header %>
+        <script type="text/javascript" src="js/angular.piechart.min.js"></script>
+        <link rel='stylesheet' type='text/css' href='css/angular.piechart.css'>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="lSide">
+                <% include ../partials/sidebar %>
+            </div>
+            <div class="rSide">
+                <div class="head gradientr">
+                    <div class="box-arrow delay desk" onClick="resizes()">
+                        <div class="arrow delay"></div>
+                        <div class="arrow delay"></div>
+                    </div>
+                </div>
+                <div class="mainbox column">
+                    <!-- <div class="top-info column">
+                        <div class="containt top-info-box shadow half delay" style="background: #68baf9;">
+                            <div class="size-std icon-info"><img src="images/icon/user-white.png"></div>
+                            <div class="field-info">
+                                <p class="nopad size-head4"><b>Total Member</b></p>
+                                <p class="size-head1 nopad">10</p>
+                                <p class="size-std nopad">Persons</p>
+                            </div>
+                        </div>
+                        <div class="containt top-info-box shadow half delay" style="background: #68baf9;">
+                            <div class="size-std icon-info"><img src="images/icon/user-white.png"></div>
+                            <div class="field-info">
+                                <p class="nopad size-head4"><b>Total Member</b></p>
+                                <p class="size-head1 nopad">10</p>
+                                <p class="size-std nopad">Persons</p>
+                            </div>
+                        </div>
+                        <div class="containt top-info-box shadow half delay" style="background: #68baf9;">
+                            <div class="size-std icon-info"><img src="images/icon/user-white.png"></div>
+                            <div class="field-info">
+                                <p class="nopad size-head4"><b>Total Member</b></p>
+                                <p class="size-head1 nopad">10</p>
+                                <p class="size-std nopad">Persons</p>
+                            </div>
+                        </div>
+                        <div class="containt top-info-box shadow half delay" style="background: #68baf9;">
+                            <div class="size-std icon-info"><img src="images/icon/user-white.png"></div>
+                            <div class="field-info">
+                                <p class="nopad size-head4"><b>Total Member</b></p>
+                                <p class="size-head1 nopad">10</p>
+                                <p class="size-std nopad">Persons</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="spccols-6">
+                        <div style="width: 100%;" class="containt short-table">
+                            <div class="headtitle trans">
+                                <p class="nopad">Assign to me</p>
+                                <ul class="tab-image-setting nopad">
+                                    <li><img src="<%= baseurl() %>images/icon/arrow-up.png" class="btn-tab-toggle delay" href="assigntome"></li>
+                                    <li class="option-click" href="#assigntome"><img src="<%= baseurl() %>images/icon/option-strip.png"></li>
+                                </ul>
+                            </div>
+                            <div class="table-wrapper table-toggle assigntome" style="width: 100%;">
+                                <table class="size-std basic-tables spc-tb" style="width: 100%;" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <th></th>
+                                        <th align="left">Subject</th>
+                                        <th align="right">Duedate</th>
+                                    </tr>
+                                    <% for(let res of issue){ %>
+                                    <tr>
+                                        <td><a href="<%= baseurl() %>request/detail/<%= res.id_request %>"><%= res.id_request %></a></td>
+                                        <td><%= res.subj_req %></td>
+                                        <td align="right"><%= moment(res.duedate).format('D-MMM-YYYY') %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+<% include ../partials/footer %>
+</html>
